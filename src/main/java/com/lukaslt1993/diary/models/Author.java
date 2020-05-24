@@ -4,11 +4,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.validation.constraints.Email;
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity
 public class Author {
 	

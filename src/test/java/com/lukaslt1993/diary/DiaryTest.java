@@ -98,7 +98,7 @@ public class DiaryTest {
 	@Test
 	@Order(7)
 	public void otherUserCantUpdate() throws Exception {
-		String json = "{\"title\": \"title11\", \"text\": \"text11\"}";
+		String json = "{\"title\": \"title111\", \"text\": \"text111\"}";
 		mvc.perform(MockMvcRequestBuilders.put(diaries + "/" + repo.count()).contentType(MediaType.APPLICATION_JSON)
 				.content(json)).andExpect(MockMvcResultMatchers.status().isUnauthorized());
 	}
