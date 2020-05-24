@@ -39,8 +39,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/", "/register").permitAll().antMatchers("/authors").denyAll()
-			.anyRequest().authenticated().and().httpBasic().and().csrf().disable();
+		http.authorizeRequests().antMatchers("/", EndpointNames.REGISTER).permitAll().antMatchers(EndpointNames.AUTHORS)
+			.denyAll().anyRequest().authenticated().and().httpBasic().and().csrf().disable();
 	}
 	
 	@Bean

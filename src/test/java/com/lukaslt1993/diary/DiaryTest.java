@@ -35,7 +35,7 @@ public class DiaryTest {
 	WebApplicationContext webApplicationContext;
 
 	private MockMvc mvc;
-	private final String diaries = "/diaries", email = "aaa@bbb.com";
+	private final String diaries = EndpointNames.DIARIES, register = EndpointNames.REGISTER, email = "aaa@bbb.com";
 
 	@BeforeEach
 	public void setUp() {
@@ -47,7 +47,7 @@ public class DiaryTest {
 	@Order(1)
 	public void register() throws Exception {
 		String json = "{\"email\": \"aaa@bbb.com\", \"password\": \"abc\"}";
-		mvc.perform(MockMvcRequestBuilders.post("/register").contentType(MediaType.APPLICATION_JSON).content(json))
+		mvc.perform(MockMvcRequestBuilders.post(register).contentType(MediaType.APPLICATION_JSON).content(json))
 				.andExpect(MockMvcResultMatchers.status().isOk());
 	}
 

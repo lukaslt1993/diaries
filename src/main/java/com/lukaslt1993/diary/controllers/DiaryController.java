@@ -17,11 +17,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.lukaslt1993.diary.EndpointNames;
 import com.lukaslt1993.diary.models.Record;
 import com.lukaslt1993.diary.repositories.DiariesRepository;
 
 @RestController
-@RequestMapping({ "/diaries" })
+@RequestMapping(EndpointNames.DIARIES)
 public class DiaryController {
 
 	@Autowired
