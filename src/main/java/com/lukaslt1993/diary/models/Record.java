@@ -11,11 +11,11 @@ public class Record {
 
 	@Id
 	@GeneratedValue
-    private Long id;
+	private Long id;
 
 	private String title;
-	
-    private String text;
+
+	private String text;
 
 	public String getTitle() {
 		return title;

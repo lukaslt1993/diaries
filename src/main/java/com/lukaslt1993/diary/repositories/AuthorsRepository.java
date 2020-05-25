@@ -7,5 +7,5 @@ import com.lukaslt1993.diary.models.Author;
 
 @Repository
 public interface AuthorsRepository extends JpaRepository<Author, String> {
-	
+
 }

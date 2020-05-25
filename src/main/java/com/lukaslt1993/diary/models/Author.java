@@ -6,11 +6,11 @@ import javax.validation.constraints.Email;
 
 @Entity
 public class Author {
-	
+
 	@Id
 	@Email()
 	private String email;
-	
+
 	private String password;
 
 	public String getEmail() {

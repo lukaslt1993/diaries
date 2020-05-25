@@ -7,5 +7,5 @@ import com.lukaslt1993.diary.models.Record;
 
 @Repository
 public interface DiariesRepository extends JpaRepository<Record, Long> {
-	
+
 }

@@ -19,7 +19,7 @@ import com.lukaslt1993.diary.repositories.AuthorsRepository;
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-	
+
 	@Autowired
 	AuthorsRepository repo;
 
@@ -40,17 +40,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests().antMatchers("/", EndpointNames.REGISTER).permitAll().antMatchers(EndpointNames.AUTHORS)
-			.denyAll().anyRequest().authenticated().and().httpBasic().and().csrf().disable();
+				.denyAll().anyRequest().authenticated().and().httpBasic().and().csrf().disable();
 	}
-	
-	@Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
 
-    @Bean
-    public UserDetailsService userDetailsService() {
-        return new MyUserDetailsService();
-    }
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
+
+	@Bean
+	public UserDetailsService userDetailsService() {
+		return new MyUserDetailsService();
+	}
 
 }

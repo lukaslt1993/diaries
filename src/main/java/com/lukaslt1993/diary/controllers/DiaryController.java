@@ -87,7 +87,7 @@ public class DiaryController {
 			}
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("You could only update your own posts");
 		}
-		
+
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Post not found");
 	}
 

@@ -27,7 +27,7 @@ import com.lukaslt1993.diary.repositories.DiariesRepository;
 @SpringBootTest
 @TestMethodOrder(OrderAnnotation.class)
 public class DiaryTest {
-	
+
 	@Autowired
 	DiariesRepository repo;
 
@@ -59,8 +59,7 @@ public class DiaryTest {
 		mvc.perform(MockMvcRequestBuilders.post(diaries).contentType(MediaType.APPLICATION_JSON).content(json))
 				.andExpect(MockMvcResultMatchers.status().isOk());
 	}
-	
-	
+
 	@WithMockUser(email)
 	@Test
 	@Order(3)
@@ -69,7 +68,7 @@ public class DiaryTest {
 		mvc.perform(MockMvcRequestBuilders.put(diaries + "/" + repo.count()).contentType(MediaType.APPLICATION_JSON)
 				.content(json)).andExpect(MockMvcResultMatchers.status().isOk());
 	}
-	
+
 	@WithMockUser(email)
 	@Test
 	@Order(4)
@@ -91,9 +90,9 @@ public class DiaryTest {
 	@Order(6)
 	public void deleteRecord() throws Exception {
 		mvc.perform(MockMvcRequestBuilders.delete(diaries + "/" + repo.count()))
-			.andExpect(MockMvcResultMatchers.status().isOk());
+				.andExpect(MockMvcResultMatchers.status().isOk());
 	}
-	
+
 	@WithMockUser("Donald@J.Trump")
 	@Test
 	@Order(7)
@@ -102,23 +101,23 @@ public class DiaryTest {
 		mvc.perform(MockMvcRequestBuilders.put(diaries + "/" + repo.count()).contentType(MediaType.APPLICATION_JSON)
 				.content(json)).andExpect(MockMvcResultMatchers.status().isUnauthorized());
 	}
-	
+
 	@WithMockUser("Hacker@anonymous.to")
 	@Test
 	@Order(8)
 	public void otherUserCantSee() throws Exception {
-		assertTrue(mvc.perform(MockMvcRequestBuilders.get(diaries))
-				.andReturn().getResponse().getContentAsString().equals("[]"));
+		assertTrue(mvc.perform(MockMvcRequestBuilders.get(diaries)).andReturn().getResponse().getContentAsString()
+				.equals("[]"));
 	}
-	
+
 	@WithMockUser("Saulius@Upes.gatve")
 	@Test
 	@Order(9)
 	public void otherUserCantDelete() throws Exception {
 		mvc.perform(MockMvcRequestBuilders.delete(diaries + "/" + repo.count()))
-			.andExpect(MockMvcResultMatchers.status().isUnauthorized());
+				.andExpect(MockMvcResultMatchers.status().isUnauthorized());
 	}
-	
+
 	@Test
 	@Order(10)
 	public void generalTest() {
