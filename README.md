@@ -18,7 +18,7 @@ Send a POST request to localhost:8080/register with a following JSON in the requ
 
 ### Logging in
 Just use basic authentication with user __aaa<span>@bbb.com__ and password __abc__\
-Once you are logged in, you don't have to use the authentication, the server will remember you by session cookie.
+Once you are logged in, you don't have to use the authentication anymore, the server will remember you by session cookie.
 
 ### Creating a record in a diary
 Send a POST request to localhost:8080/diaries with a following JSON in the request's body:\
@@ -27,11 +27,15 @@ Send a POST request to localhost:8080/diaries with a following JSON in the reque
   "text": "text1"
 }
 
-### Getting all records
+### Reading all records
 Send a GET request to localhost:8080/diaries
 
 ### Updating a record
-Send a PUT request to localhost:8080/diaries/__record_id__\
+Send a PUT request to localhost:8080/diaries/__record_id__ with a following JSON:\
+{
+  "title": "title11",
+  "text": "text11"
+}\
 ID is assigned automatically when you create record. First record's id will be 1, second record's - 2 etc.
 
 ### Deleting a record
