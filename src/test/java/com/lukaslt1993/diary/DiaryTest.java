@@ -1,6 +1,7 @@
 package com.lukaslt1993.diary;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
@@ -22,6 +23,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.lukaslt1993.diary.models.Record;
+import com.lukaslt1993.diary.repositories.AuthorsRepository;
 import com.lukaslt1993.diary.repositories.DiariesRepository;
 
 @SpringBootTest
@@ -29,7 +31,10 @@ import com.lukaslt1993.diary.repositories.DiariesRepository;
 public class DiaryTest {
 
 	@Autowired
-	DiariesRepository repo;
+	DiariesRepository diaryRepo;
+	
+	@Autowired
+	AuthorsRepository authorRepo;
 
 	@Autowired
 	WebApplicationContext webApplicationContext;
@@ -65,7 +70,7 @@ public class DiaryTest {
 	@Order(3)
 	public void updateRecord() throws Exception {
 		String json = "{\"title\": \"title11\", \"text\": \"text11\"}";
-		mvc.perform(MockMvcRequestBuilders.put(diaries + "/" + repo.count()).contentType(MediaType.APPLICATION_JSON)
+		mvc.perform(MockMvcRequestBuilders.put(diaries + "/" + diaryRepo.count()).contentType(MediaType.APPLICATION_JSON)
 				.content(json)).andExpect(MockMvcResultMatchers.status().isOk());
 	}
 
@@ -89,7 +94,7 @@ public class DiaryTest {
 	@Test
 	@Order(6)
 	public void deleteRecord() throws Exception {
-		mvc.perform(MockMvcRequestBuilders.delete(diaries + "/" + repo.count()))
+		mvc.perform(MockMvcRequestBuilders.delete(diaries + "/" + diaryRepo.count()))
 				.andExpect(MockMvcResultMatchers.status().isOk());
 	}
 
@@ -98,7 +103,7 @@ public class DiaryTest {
 	@Order(7)
 	public void otherUserCantUpdate() throws Exception {
 		String json = "{\"title\": \"title111\", \"text\": \"text111\"}";
-		mvc.perform(MockMvcRequestBuilders.put(diaries + "/" + repo.count()).contentType(MediaType.APPLICATION_JSON)
+		mvc.perform(MockMvcRequestBuilders.put(diaries + "/" + diaryRepo.count()).contentType(MediaType.APPLICATION_JSON)
 				.content(json)).andExpect(MockMvcResultMatchers.status().isUnauthorized());
 	}
 
@@ -114,17 +119,32 @@ public class DiaryTest {
 	@Test
 	@Order(9)
 	public void otherUserCantDelete() throws Exception {
-		mvc.perform(MockMvcRequestBuilders.delete(diaries + "/" + repo.count()))
+		mvc.perform(MockMvcRequestBuilders.delete(diaries + "/" + diaryRepo.count()))
 				.andExpect(MockMvcResultMatchers.status().isUnauthorized());
 	}
 
 	@Test
 	@Order(10)
 	public void generalTest() {
-		List<Record> records = repo.findAll();
+		List<Record> records = diaryRepo.findAll();
 		Record rec = records.get(records.size() - 1);
 		assertEquals("title11", rec.getTitle());
 		assertEquals("text11", rec.getText());
+	}
+	
+	@Test
+	@Order(11)
+	public void restoreAuthorRepo() {
+		authorRepo.deleteById(email);
+		assertFalse(authorRepo.findById(email).isPresent());
+	}
+	
+	@Test
+	@Order(12)
+	public void restoreDiaryRepo() {
+		long id = diaryRepo.count();
+		diaryRepo.deleteById(id);
+		assertFalse(diaryRepo.findById(id).isPresent());
 	}
 
 }
