@@ -3,6 +3,7 @@ package com.lukaslt1993.diary.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -67,9 +68,9 @@ public class DiaryController {
 
 	@GetMapping
 	public List<Record> findAllRecords() {
-		String author = getAuthor();
-		List<Record> result = repo.findAll();
-		result.removeIf(record -> !record.getAuthor().equals(author));
+		Record record = new Record();
+		record.setAuthor(getAuthor());
+		List<Record> result = repo.findAll(Example.of(record));
 		return result;
 	}
 
